@@ -2,9 +2,13 @@ def configure_app():
     import dotenv
     import os
     import flask
+    from os import sys, path
 
-    PROJECT_ROOT = os.path.dirname("./submissions/sprint_a/__init__.py")
-    print(PROJECT_ROOT)
+    sys.path.append(
+        path.dirname(path.dirname(path.abspath(__file__ + "sprint_b")))
+    )
+    PROJECT_ROOT = os.path.dirname("./submissions/sprint_b/__init__.py")
+
     ENV_PATH = os.path.join(PROJECT_ROOT, ".env")
     dotenv.load_dotenv(ENV_PATH)
     app = flask.Flask(__name__)
@@ -12,3 +16,4 @@ def configure_app():
 
 
 app = configure_app()
+

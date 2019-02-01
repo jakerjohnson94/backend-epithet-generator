@@ -1,4 +1,5 @@
 from sprint_b import app
+
 from sprint_b.helpers import Vocabulary, FileManager
 from sprint_b.helpers import EpithetGenerator as ep
 import os
