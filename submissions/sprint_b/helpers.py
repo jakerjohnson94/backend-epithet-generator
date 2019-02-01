@@ -1,6 +1,6 @@
 import os
 import json
-import csv
+import pandas
 import random
 
 
@@ -20,14 +20,10 @@ class FileManager:
 
     @staticmethod
     def read_csv(path, mode="r"):
-        data = {"Column 1": [], "Column 2": [], "Column 3": []}
         """reads data from a csv file path"""
-        with open(path, mode=mode) as handle:
-            reader = csv.reader(handle)
-            for col1, col2, col3 in reader:
-                data["Column 1"].append(col1)
-                data["Column 2"].append(col2)
-                data["Column 3"].append(col3)
+        names = ["Column 1", "Column 2", "Column 3"]
+        data = pandas.read_csv(path, names=names)
+        return data
 
 
 class Vocabulary:
@@ -71,7 +67,6 @@ class EpithetGenerator:
     def select_words(cls, path):
         """Selects a random word from one of each data column and appends them to an array"""
         vocab = cls.vocabulary.from_file(path)
-        print(vocab)
         cols = [vocab["Column 1"], vocab["Column 2"], vocab["Column 3"]]
         words = []
         for col in cols:
