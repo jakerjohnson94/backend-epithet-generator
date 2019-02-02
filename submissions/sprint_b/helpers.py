@@ -1,6 +1,6 @@
 import os
 import json
-import pandas
+import csv
 import random
 
 
@@ -21,9 +21,18 @@ class FileManager:
     @staticmethod
     def read_csv(path, mode="r"):
         """reads data from a csv file path"""
-        names = ["Column 1", "Column 2", "Column 3"]
-        data = pandas.read_csv(path, names=names)
-        return data
+        data = {"Column 1": [], "Column 2": [], "Column 3": []}
+        with open(path, newline="") as csvfile:
+            payload = csv.reader(csvfile)
+            data_list = list(payload)[1:]
+            for c1, c2, c3 in data_list:
+                if c1 is not "":
+                    data["Column 1"].append(c1)
+                if c2 is not "":
+                    data["Column 2"].append(c2)
+                if c3 is not "":
+                    data["Column 3"].append(c3)
+            return data
 
 
 class Vocabulary:
@@ -32,22 +41,22 @@ class Vocabulary:
     files = FileManager()
 
     @classmethod
-    def from_file(cls, path, *args, **kwargs):
+    def from_file(cls, path):
         """decides how to represent data based on fyle type"""
         extension = cls.files.get_extension(path)
-        representation = cls.strategies(extension)(path, *args, **kwargs)
+        representation = cls.strategies(extension)(path)
         return representation
 
     @classmethod
-    def from_json(cls, path, *args, **kwargs):
+    def from_json(cls, path):
         """reads data from a json file path"""
-        data = cls.files.read_json(path, *args, **kwargs)
+        data = cls.files.read_json(path)
         return data
 
     @classmethod
-    def from_csv(cls, path, *args, **kwargs):
+    def from_csv(cls, path):
         """reads data from a json file path"""
-        data = cls.files.read_csv(path, *args, **kwargs)
+        data = cls.files.read_csv(path)
         return data
 
     @classmethod
