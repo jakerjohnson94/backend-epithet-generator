@@ -52,8 +52,25 @@ class TestEpithet(object):
 
 @pytest.mark.usefixtures("client")
 class TestApp(object):
-    def test_app_view(self, client):
-        assert client.get(url_for("epithets")).status_code == 200
-        assert client.get(url_for("random_epithets")).status_code == 200
-        assert client.get(url_for("vocabulary")).status_code == 200
+    def test_root(self, client):
+        res = client.get("/")
+        assert res.status_code == 200
+        assert res.json["epithets"] is not None
+        assert len(res.json["epithets"]) == 1
 
+    def test_epithets(self, client):
+        res = client.get("/epithets/5")
+        assert res.json["epithets"] is not None
+        assert len(res.json["epithets"]) == 5
+
+        res = client.get("/epithets/10")
+        assert len(res.json["epithets"]) == 10
+
+        res = client.get("/epithets/random")
+        assert res.status_code == 200
+        assert res.json["epithets"] is not None
+
+    def test_vocab(self, client):
+        res = client.get("/vocabulary")
+        assert res.status_code == 200
+        assert res.json["vocabulary"] is not None

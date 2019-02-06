@@ -1,7 +1,7 @@
 from sprint_c import app
 from sprint_c.helpers import Vocabulary, FileManager
 from sprint_c.helpers import EpithetGenerator as ep
-from flask import request
+from flask import request, jsonify
 from random import randint
 import os
 import json
@@ -14,7 +14,7 @@ path = "../../resources/data.json"
 @app.route("/epithets/<int:count>")
 def epithets(count=1):
     epithets = ep.generate_epithets(path, count)
-    return json.dumps({"epithets": epithets})
+    return jsonify({"epithets": epithets})
 
 
 @app.route("/epithets/random")
@@ -26,5 +26,5 @@ def random_epithets():
 @app.route("/vocabulary")
 def vocabulary():
     cols = Vocabulary.from_file(path)
-    return json.dumps({"vocabulary": cols})
+    return jsonify({"vocabulary": cols})
 
