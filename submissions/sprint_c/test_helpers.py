@@ -1,5 +1,7 @@
 import pytest
 from sprint_c.helpers import Vocabulary, FileManager, EpithetGenerator
+from sprint_c.conftest import app
+from flask import url_for
 
 voc = Vocabulary
 ep = EpithetGenerator
@@ -46,4 +48,12 @@ class TestEpithet(object):
         assert ep_list
         assert len(ep_list) == 3
         assert epithet in " ".join(ep_list)
+
+
+@pytest.mark.usefixtures("client")
+class TestApp(object):
+    def test_app_view(self, client):
+        assert client.get(url_for("epithets")).status_code == 200
+        assert client.get(url_for("random_epithets")).status_code == 200
+        assert client.get(url_for("vocabulary")).status_code == 200
 

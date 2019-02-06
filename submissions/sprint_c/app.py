@@ -17,13 +17,14 @@ def epithets(count=1):
     return json.dumps({"epithets": epithets})
 
 
+@app.route("/epithets/random")
+def random_epithets():
+    count = randint(1, 100)
+    return epithets(count)
+
+
 @app.route("/vocabulary")
 def vocabulary():
     cols = Vocabulary.from_file(path)
     return json.dumps({"vocabulary": cols})
 
-
-@app.route("/epithets/random")
-def random_epithets():
-    count = randint(1, 100)
-    return epithets(count)
