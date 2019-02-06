@@ -1,7 +1,8 @@
-from sprint_b import app
-from sprint_b.helpers import Vocabulary, FileManager
-from sprint_b.helpers import EpithetGenerator as ep
+from sprint_c import app
+from sprint_c.helpers import Vocabulary, FileManager
+from sprint_c.helpers import EpithetGenerator as ep
 from flask import request
+from random import randint
 import os
 import json
 
@@ -21,3 +22,8 @@ def vocabulary():
     cols = Vocabulary.from_file(path)
     return json.dumps({"vocabulary": cols})
 
+
+@app.route("/epithets/random")
+def random_epithets():
+    count = randint(1, 100)
+    return epithets(count)

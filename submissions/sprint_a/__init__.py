@@ -3,7 +3,7 @@ def configure_app():
     import os
     import flask
 
-    PROJECT_ROOT = os.path.dirname("./submissions/sprint_a/__init__.py")
+    PROJECT_ROOT = os.path.dirname("./submissions/sprint_c/__init__.py")
     print(PROJECT_ROOT)
     ENV_PATH = os.path.join(PROJECT_ROOT, ".env")
     dotenv.load_dotenv(ENV_PATH)
