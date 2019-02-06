@@ -1,5 +1,5 @@
 import pytest
-from sprint_b.helpers import Vocabulary, FileManager, EpithetGenerator
+from sprint_c.helpers import Vocabulary, FileManager, EpithetGenerator
 
 voc = Vocabulary
 ep = EpithetGenerator
